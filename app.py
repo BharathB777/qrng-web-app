@@ -1,6 +1,6 @@
 import os
 from flask import Flask, render_template, request
-from qrng import generate_quantum_bit  # This should return a string like '01101001'
+from qrng import generate_quantum_bit
 
 app = Flask(__name__)
 
@@ -8,18 +8,21 @@ app = Flask(__name__)
 def index():
     bit = None
     bit_counts = None
+    bit_length = 8  # default value
 
     if request.method == "POST":
-        bit = generate_quantum_bit(8)  # Generate 8 quantum bits as a string
+        try:
+            bit_length = int(request.form.get("bit_length", 8))
+            bit = generate_quantum_bit(bit_length)
+            bit_counts = {
+                "0": bit.count("0"),
+                "1": bit.count("1")
+            }
+        except Exception as e:
+            bit = f"Error: {str(e)}"
 
-        # Count how many 0s and 1s are in the 8-bit string
-        bit_counts = {
-            "0": bit.count("0"),
-            "1": bit.count("1")
-        }
-
-    return render_template("index.html", bit=bit, bit_counts=bit_counts)
+    return render_template("index.html", bit=bit, bit_counts=bit_counts, bit_length=bit_length)
 
 if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 10000))  # Default to 10000 for local dev
+    port = int(os.environ.get("PORT", 10000))
     app.run(debug=True, host="0.0.0.0", port=port)

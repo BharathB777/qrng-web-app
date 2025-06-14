@@ -1,11 +1,10 @@
 from qiskit import QuantumCircuit, transpile
 from qiskit_aer import AerSimulator
-from qiskit.visualization import plot_histogram
 
-def generate_quantum_bit():
-    qc = QuantumCircuit(8, 8)
-    qc.h(range(8))  # Apply Hadamard to all 8 qubits
-    qc.measure(range(8), range(8))
+def generate_quantum_bit(n=8):
+    qc = QuantumCircuit(n, n)
+    qc.h(range(n))  # Put qubits in superposition
+    qc.measure(range(n), range(n))  # Measure the qubits
 
     simulator = AerSimulator()
     compiled_circuit = transpile(qc, simulator)
