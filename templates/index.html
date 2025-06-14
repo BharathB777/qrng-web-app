@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quantum Random Number Generator</title>
+    <style>
+        body {
+            font-family: 'Courier New', monospace;
+            background-color: #0d0d0d;
+            color: #39ff14;
+            padding: 30px;
+        }
+        .container {
+            max-width: 700px;
+            margin: auto;
+            background-color: #111;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px #39ff14;
+        }
+        h1 {
+            color: #39ff14;
+            text-align: center;
+        }
+        .bit-box {
+            font-size: 28px;
+            background: #000;
+            color: #00ffff;
+            padding: 20px;
+            margin: 25px 0;
+            border: 2px solid #00ffff;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 0 10px #00ffff;
+            animation: pulse 1.2s ease-out;
+        }
+        button {
+            background-color: #39ff14;
+            color: black;
+            padding: 12px 24px;
+            font-size: 18px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            display: block;
+            margin: 0 auto;
+            box-shadow: 0 0 10px #39ff14;
+            transition: all 0.3s ease;
+        }
+        button:hover {
+            background-color: #00ff99;
+            box-shadow: 0 0 20px #00ff99;
+        }
+        .explanation {
+            margin-top: 30px;
+            line-height: 1.6;
+            color: #ccc;
+        }
+        .explanation h2 {
+            color: #00ffff;
+        }
+        @keyframes pulse {
+            0%   { box-shadow: 0 0 5px #00ffff; transform: scale(1); }
+            50%  { box-shadow: 0 0 25px #00ffff; transform: scale(1.05); }
+            100% { box-shadow: 0 0 10px #00ffff; transform: scale(1); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Quantum Random Number Generator (QRNG)</h1>
+
+        <div class="bit-box">
+            <strong>Generated Quantum Bit:</strong> {{ bit if bit else "Click the button!" }}
+        </div>
+
+        <form method="POST">
+            <button type="submit">Generate New Bit</button>
+        </form>
+
+        <div class="explanation">
+            <h2>What is QRNG?</h2>
+            <p>
+                A <strong>Quantum Random Number Generator (QRNG)</strong> uses the principles of quantum mechanics to generate truly random numbers.
+                Unlike traditional random number generators, which rely on algorithms or physical processes that can be predicted or repeated,
+                QRNGs harness quantum phenomena—such as the unpredictable outcome of a quantum measurement—to ensure
+                <strong>unbiased and non-deterministic</strong> randomness.
+            </p>
+            <p>
+                In this demo, we use a <strong>quantum circuit</strong> with a Hadamard gate that puts a qubit in a superposition of 0 and 1.
+                When measured, it collapses to either 0 or 1 with equal probability, providing one random bit per run.
+            </p>
+        </div>
+    </div>
+</body>
+</html>
