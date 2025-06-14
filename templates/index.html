@@ -1,41 +1,73 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Quantum Random Bit Generator</title>
+    <title>Quantum Random Number Generator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            margin-top: 50px;
+            background: #f0f0f0;
+            padding: 30px;
         }
         .container {
-            display: inline-block;
-            text-align: left;
-            padding: 20px;
-            border: 2px solid #ccc;
-            border-radius: 15px;
+            max-width: 700px;
+            margin: auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-        input[type="number"] {
-            width: 60px;
+        h1 {
+            color: #2c3e50;
+        }
+        .bit-box {
+            font-size: 24px;
+            background: #e0f7fa;
+            padding: 15px;
+            margin: 20px 0;
+            border-left: 5px solid #00796b;
+        }
+        .explanation {
+            margin-top: 30px;
+            line-height: 1.6;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #00796b;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #004d40;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Quantum Random Bit Generator</h1>
+        <h1>Quantum Random Number Generator (QRNG)</h1>
+
+        <div class="bit-box">
+            <strong>Generated Quantum Bit:</strong> {{ bit }}
+        </div>
+
         <form method="POST">
-            <label for="bit_length">Bit Length:</label>
-            <input type="number" id="bit_length" name="bit_length" value="{{ bit_length }}" min="1" max="32" required>
-            <button type="submit">Generate</button>
+            <button type="submit">Generate New 8-bit String</button>
         </form>
 
-        {% if bit %}
-            <h3>Quantum Bit: {{ bit }}</h3>
-            {% if bit_counts %}
-                <p>Count of 0s: {{ bit_counts['0'] }}</p>
-                <p>Count of 1s: {{ bit_counts['1'] }}</p>
-            {% endif %}
-        {% endif %}
+        <div class="explanation">
+            <h2>What is QRNG?</h2>
+            <p>
+                A <strong>Quantum Random Number Generator (QRNG)</strong> uses the principles of quantum mechanics to generate truly random numbers.
+                Unlike traditional random number generators, which rely on algorithms or physical processes that can be predicted or repeated,
+                QRNGs harness quantum phenomena—such as the unpredictable outcome of a quantum measurement—to ensure <strong>unbiased and non-deterministic</strong> randomness.
+            </p>
+            <p>
+                In this demo, we use a <strong>quantum circuit</strong> with Hadamard gates to put qubits into a superposition.
+                When measured, they collapse to 0 or 1 randomly, giving you an 8-bit quantum-generated number.
+            </p>
+        </div>
     </div>
 </body>
 </html>
