@@ -1,6 +1,6 @@
 import os
 from flask import Flask, render_template, request
-from qrng import generate_quantum_bits
+from qrng import generate_quantum_bit
 
 app = Flask(__name__)
 
@@ -8,7 +8,7 @@ app = Flask(__name__)
 def index():
     bit = None
     if request.method == "POST":
-        bit = generate_quantum_bits(8)
+        bit = generate_quantum_bit(8)
     return render_template("index.html", bit=bit)
 
 if __name__ == "__main__":
