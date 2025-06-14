@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Quantum Random Number Generator</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: 'Courier New', monospace;
@@ -78,6 +79,11 @@
             <button type="submit">Generate New Bit</button>
         </form>
 
+        {% if bit_counts %}
+        <h2 style="text-align: center; margin-top: 40px;">Bit Frequency Chart</h2>
+        <canvas id="bitChart" width="400" height="200" style="display: block; margin: 0 auto;"></canvas>
+        {% endif %}
+
         <div class="explanation">
             <h2>What is QRNG?</h2>
             <p>
@@ -92,5 +98,39 @@
             </p>
         </div>
     </div>
+
+    {% if bit_counts %}
+    <script>
+        const bitData = {{ bit_counts | tojson }};
+        const ctx = document.getElementById('bitChart').getContext('2d');
+        const chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ['0', '1'],
+                datasets: [{
+                    label: 'Bit Frequency',
+                    data: [bitData["0"], bitData["1"]],
+                    backgroundColor: ['#3498db', '#2ecc71'],
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        precision: 0
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: '#39ff14'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+    {% endif %}
 </body>
 </html>
